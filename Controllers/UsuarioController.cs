@@ -2,6 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Proyecto.Models;
 using Proyecto.Models.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Proyecto.Controllers
 {
@@ -19,34 +28,35 @@ namespace Proyecto.Controllers
          */
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Usuarios.ToListAsync()); // Aqui quiero meter el encargadoDepartamento para mostrarlo en la vista
+            return View(await _context.UsuariosViews.ToListAsync()); // Aqui quiero meter el encargadoDepartamento para mostrarlo en la vista
         }
+
+        // GET: ActividadManoObras/Create
+        public IActionResult Create()
+        {
+            List<Rol> listaRoles = new List<Rol>();
+            listaRoles = (from rol in _context.Rols select new Rol { Id = rol.Id, Nombre = rol.Nombre }).ToList();
+            listaRoles.Insert(0, new Rol { Id=0, Nombre = "Seleccione un rol" });
+            ViewBag.messageRoles = listaRoles;
+            return View();
+        }
+
 
         /**
           * Funcion encargada de crear los departamentos
          */
-        public async Task<IActionResult> Create(UsuarioViewModel model)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Cedula,NombreUsuario,Clave,Nombre,Apellido1,Apelllido2, Rol")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                var usuario = new Usuario()
-                {
-                    Cedula = model.Cedula,
-                    Nombre = model.Nombre,
-                    Apellido1 = model.Apellido1,
-                    Apelllido2 = model.Apelllido2,
-                    //Rol = model.Rol
-                };
-
-                List<Rol> listaRoles = new List<Rol>();
-                listaRoles = (from rol in _context.Rols select new Rol { Id=rol.Id, Nombre=rol.Nombre}).ToList();
-                listaRoles.Insert(0, new Rol { Nombre="Seleccione su rol: " });
-
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(model);
+
+            return View(usuario);
         }
 
     }

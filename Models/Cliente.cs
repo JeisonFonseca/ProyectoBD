@@ -8,12 +8,11 @@ namespace Proyecto.Models
         public Cliente()
         {
             ActividadClientes = new HashSet<ActividadCliente>();
-            Contactos = new HashSet<Contacto>();
             CotizacionClientes = new HashSet<CotizacionCliente>();
             TareaClientes = new HashSet<TareaCliente>();
         }
 
-        public int Cedula { get; set; }
+        public long Cedula { get; set; }
         public string NombreCuenta { get; set; } = null!;
         public string CorreoElectronico { get; set; } = null!;
         public string? ContactoPrincipal { get; set; }
@@ -23,14 +22,14 @@ namespace Proyecto.Models
         public int Moneda { get; set; }
         public int Sector { get; set; }
         public int Zona { get; set; }
-        public int Asesor { get; set; }
+        public long Asesor { get; set; }
 
         public virtual Usuario AsesorNavigation { get; set; } = null!;
         public virtual Monedum MonedaNavigation { get; set; } = null!;
         public virtual Sector SectorNavigation { get; set; } = null!;
         public virtual Zona ZonaNavigation { get; set; } = null!;
+        public virtual Contacto? Contacto { get; set; }
         public virtual ICollection<ActividadCliente> ActividadClientes { get; set; }
-        public virtual ICollection<Contacto> Contactos { get; set; }
         public virtual ICollection<CotizacionCliente> CotizacionClientes { get; set; }
         public virtual ICollection<TareaCliente> TareaClientes { get; set; }
     }

@@ -5,7 +5,7 @@ namespace Proyecto.Models
 {
     public partial class EmpleadoDepartamento
     {
-        public int CedulaEmpleado { get; set; }
+        public long CedulaEmpleado { get; set; }
         public int CodigoDepartamento { get; set; }
 
         public virtual Usuario CedulaEmpleadoNavigation { get; set; } = null!;

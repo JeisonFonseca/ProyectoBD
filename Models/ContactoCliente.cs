@@ -5,9 +5,8 @@ namespace Proyecto.Models
 {
     public partial class ContactoCliente
     {
-        public int Id { get; set; }
-        public int Contacto { get; set; }
-        public int Asesor { get; set; }
+        public long Contacto { get; set; }
+        public long Asesor { get; set; }
         public int EstadoContacto { get; set; }
 
         public virtual Usuario AsesorNavigation { get; set; } = null!;

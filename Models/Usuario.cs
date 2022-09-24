@@ -26,7 +26,7 @@ namespace Proyecto.Models
             TareaEjecucions = new HashSet<TareaEjecucion>();
         }
 
-        public int Cedula { get; set; }
+        public long Cedula { get; set; }
         public string NombreUsuario { get; set; } = null!;
         public string Clave { get; set; } = null!;
         public string Nombre { get; set; } = null!;

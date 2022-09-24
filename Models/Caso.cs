@@ -13,8 +13,8 @@ namespace Proyecto.Models
         }
 
         public int Id { get; set; }
-        public int PropietarioCaso { get; set; }
-        public int NombreCuenta { get; set; }
+        public long PropietarioCaso { get; set; }
+        public long NombreCuenta { get; set; }
         public int OrigenCaso { get; set; }
         public int EstadoCaso { get; set; }
         public string? NombreContacto { get; set; }

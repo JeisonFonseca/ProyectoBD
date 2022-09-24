@@ -14,12 +14,12 @@ namespace Proyecto.Models
 
         public int Id { get; set; }
         public int Departamento { get; set; }
-        public int PropietarioEjecucion { get; set; }
+        public long PropietarioEjecucion { get; set; }
         public string NombreEjecucion { get; set; } = null!;
         public DateTime FechaEjecucion { get; set; }
-        public int NombreCuenta { get; set; }
+        public long NombreCuenta { get; set; }
         public DateTime MAProyCierre { get; set; }
-        public int Asesor { get; set; }
+        public long Asesor { get; set; }
         public DateTime? FechaCierreReal { get; set; }
 
         public virtual Usuario AsesorNavigation { get; set; } = null!;
