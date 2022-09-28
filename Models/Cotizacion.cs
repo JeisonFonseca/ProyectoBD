@@ -8,7 +8,6 @@ namespace Proyecto.Models
         public Cotizacion()
         {
             ActividadCotizacions = new HashSet<ActividadCotizacion>();
-            CotizacionClientes = new HashSet<CotizacionCliente>();
             CotizacionProductos = new HashSet<CotizacionProducto>();
             TareaCotizacions = new HashSet<TareaCotizacion>();
         }
@@ -17,6 +16,7 @@ namespace Proyecto.Models
         public string NombreCotizacion { get; set; } = null!;
         public DateTime FechaCotizacion { get; set; }
         public DateTime MesAnnoPrytadoCierre { get; set; }
+        public long CedulaCuenta { get; set; }
         public DateTime? FechaCierreReal { get; set; }
         public int EtapaCotiza { get; set; }
         public int Moneda { get; set; }
@@ -35,9 +35,9 @@ namespace Proyecto.Models
         public virtual PorQueSeDenego PorqueSeDenegoNavigation { get; set; } = null!;
         public virtual Probabilidad ProbabilidadNavigation { get; set; } = null!;
         public virtual TipoCotizacion TipoCotizacionNavigation { get; set; } = null!;
+        public virtual CotizacionCliente? CotizacionCliente { get; set; }
         public virtual CotizacionEjecucion? CotizacionEjecucion { get; set; }
         public virtual ICollection<ActividadCotizacion> ActividadCotizacions { get; set; }
-        public virtual ICollection<CotizacionCliente> CotizacionClientes { get; set; }
         public virtual ICollection<CotizacionProducto> CotizacionProductos { get; set; }
         public virtual ICollection<TareaCotizacion> TareaCotizacions { get; set; }
     }

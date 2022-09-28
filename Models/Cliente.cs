@@ -8,7 +8,6 @@ namespace Proyecto.Models
         public Cliente()
         {
             ActividadClientes = new HashSet<ActividadCliente>();
-            CotizacionClientes = new HashSet<CotizacionCliente>();
             TareaClientes = new HashSet<TareaCliente>();
         }
 
@@ -30,7 +29,6 @@ namespace Proyecto.Models
         public virtual Zona ZonaNavigation { get; set; } = null!;
         public virtual Contacto? Contacto { get; set; }
         public virtual ICollection<ActividadCliente> ActividadClientes { get; set; }
-        public virtual ICollection<CotizacionCliente> CotizacionClientes { get; set; }
         public virtual ICollection<TareaCliente> TareaClientes { get; set; }
     }
 }
