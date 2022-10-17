@@ -9,9 +9,9 @@ builder.Services.AddControllersWithViews();
 /**
  * Inyeccion de dependencias
  */
-builder.Services.AddDbContext<PruebaProyecto1Context>(options =>
+builder.Services.AddDbContext<FincaLosLaurelesContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("PruebaProyecto1Context"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 var app = builder.Build();

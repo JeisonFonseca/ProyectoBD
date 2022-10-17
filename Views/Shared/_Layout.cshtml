@@ -2,105 +2,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Arya Stack</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Proyecto.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Finca Los Laureles</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/Proyecto.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Cambio -->
-    <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <!-- Cambio -->
+	<!-- Cambio -->
+	<link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<!-- Cambio -->
 
 </head>
 <body>
-    <header>
-        <div class="topnav">
-            <div class="topnav-right">
-                <div class="dropdown">
-                    <button class="dropbtn">User
-                        <i class="fa fa-caret-down"></i>
-                     </button>
-                     <div class="dropdown-content">
-                         <a href="#">Dashboard</a>
-                         <a href="#">Edit Profile</a>
-                         <a href="#">Log Out</a>
-                     </div>
-                </div>
-             </div>
-         </div>
-    </header>
+	<header>
+		<div class="topnav">
+			<div class="topnav-right">
+				<div class="dropdown">
+					<button class="dropbtn">
+						User
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+						<a href="#">Dashboard</a>
+						<a href="#">Edit Profile</a>
+						<a href="#">Log Out</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 
-<div id="wrapper">
-   <div class="overlay"></div>
-    
-        <!-- Sidebar -->
-    <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
-     <ul class="nav sidebar-nav">
-       <div class="sidebar-header">
-       <div class="sidebar-brand">
-         <a href="#">Arya Stack</a></div></div>
-       <li> <a asp-area="" asp-controller="Home" asp-action="Index">Home</a> </li>
-       <li> <a asp-controller="Cliente" asp-action="Index">Clientes </a> </li>
-       <li><a href="#events">Events</a></li>
-       <li> <a asp-area="" asp-controller="Usuario" asp-action="Index">Equipo</a> </li>
-      
-       <div class="dropdown">
-           <button class="dropbtn">Campos catalogos</button>
-           <div class="dropdown-content">
-               <a class="nav-link text-dark" asp-area="" asp-controller="Direccions" asp-action="Index">Direcciones</a>
-               <a class="nav-link text-dark" asp-area="" asp-controller="EstadoCasoes" asp-action="Index">Estado caso</a>
-               <a class="nav-link text-dark" asp-area="" asp-controller="EstadoContactoes" asp-action="Index">Estado contacto</a>
-               <a class="nav-link text-dark" asp-area="" asp-controller="EtapaCotizacions" asp-action="Index">Etapa cotización</a>               
-               <a class="nav-link text-dark" asp-area="" asp-controller="Monedums" asp-action="Index">Moneda</a>               
-               <a class="nav-link text-dark" asp-area="" asp-controller="MotivoContactoes" asp-action="Index">Motivo contacto</a>               
-               <a class="nav-link text-dark" asp-area="" asp-controller="OrigenCasoes" asp-action="Index">Origen caso</a>               
-               <a class="nav-link text-dark" asp-area="" asp-controller="Prioridads" asp-action="Index">Prioridad</a>               
-               <a class="nav-link text-dark" asp-area="" asp-controller="Probabilidads" asp-action="Index">Probabilidad</a>               
-               <a class="nav-link text-dark" asp-area="" asp-controller="Rols" asp-action="Index">Roles</a>
-               <a class="nav-link text-dark" asp-area="" asp-controller="Sectors" asp-action="Index">Sector</a>               
-               <a class="nav-link text-dark" asp-area="" asp-controller="TipoCasoes" asp-action="Index">Tipo caso</a>
-               <a class="nav-link text-dark" asp-area="" asp-controller="TipoContactoes" asp-action="Index">Tipo contacto</a>
-               <a class="nav-link text-dark" asp-area="" asp-controller="TipoCotizacions" asp-action="Index">Tipo cotización</a>
-               <a class="nav-link text-dark" asp-area="" asp-controller="Zonas" asp-action="Index">Zonas</a>
-               <a class="nav-link text-dark" asp-area="" asp-controller="PorQueSeDenegoes" asp-action="Index">¿Por qué se denegó?</a>   
-          </div>
-       </div>
-       </li>
-       <li><a href="#services">Services</a></li>
-       <li><a href="#contact">Contact</a></li>
-       <li><a href="#followme">Follow me</a></li>
-   </ul>
+	<div id="wrapper">
+		<div class="overlay"></div>
+
+		<!-- Sidebar -->
+		<nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
+			<ul class="nav sidebar-nav">
+				<div class="sidebar-header">
+					<div class="sidebar-brand">
+						<a <a asp-area="" asp-controller="Home" asp-action="Index">Finca Los Laureles</a></a>
+					</div>
+				</div>
+				<li> <a asp-area="" asp-controller="Encargadoes" asp-action="Index">Dueños</a> </li>
+				<li> <a asp-controller="Cliente" asp-action="Index">Clientes </a> </li>
+				<li><a href="#events">Events</a></li>
+				<li> <a asp-area="" asp-controller="Usuario" asp-action="Index">Equipo</a> </li>
+
+				<div class="dropdown">
+					<button class="dropbtn">Animales</button>
+					<div class="dropdown-content">
+						<a class="nav-link text-dark" asp-area="" asp-controller="Direccions" asp-action="Index">Direcciones</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="EstadoCasoes" asp-action="Index">Estado caso</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="EstadoContactoes" asp-action="Index">Estado contacto</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="EtapaCotizacions" asp-action="Index">Etapa cotización</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="Monedums" asp-action="Index">Moneda</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="MotivoContactoes" asp-action="Index">Motivo contacto</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="OrigenCasoes" asp-action="Index">Origen caso</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="Prioridads" asp-action="Index">Prioridad</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="Probabilidads" asp-action="Index">Probabilidad</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="Rols" asp-action="Index">Roles</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="Sectors" asp-action="Index">Sector</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="TipoCasoes" asp-action="Index">Tipo caso</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="TipoContactoes" asp-action="Index">Tipo contacto</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="TipoCotizacions" asp-action="Index">Tipo cotización</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="Zonas" asp-action="Index">Zonas</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="PorQueSeDenegoes" asp-action="Index">¿Por qué se denegó?</a>
+					</div>
+				</div>
+				</li>
+				<li><a href="#services">Services</a></li>
+				<li><a href="#contact">Contact</a></li>
+				<li><a href="#followme">Follow me</a></li>
+			</ul>
 
 
-  </nav>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
-                <span class="hamb-top"></span>
-    			<span class="hamb-middle"></span>
+		</nav>
+		<!-- /#sidebar-wrapper -->
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+				<span class="hamb-top"></span>
+				<span class="hamb-middle"></span>
 				<span class="hamb-bottom"></span>
-            </button>
-        </div>
-        <!-- /#page-content-wrapper -->
+			</button>
+		</div>
+		<!-- /#page-content-wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
-    <!--       -----------         -->
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-    <!--       -----------         -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	</div>
+	<!-- /#wrapper -->
+	<!--       -----------         -->
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+	<!--       -----------         -->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
 
