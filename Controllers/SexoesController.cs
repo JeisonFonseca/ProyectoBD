@@ -9,85 +9,85 @@ using Proyecto.Models;
 
 namespace Proyecto.Controllers
 {
-    public class EncargadoesController : Controller
+    public class SexoesController : Controller
     {
         private readonly FincaLosLaurelesContext _context;
 
-        public EncargadoesController(FincaLosLaurelesContext context)
+        public SexoesController(FincaLosLaurelesContext context)
         {
             _context = context;
         }
 
-        // GET: Encargadoes
+        // GET: Sexoes
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Encargados.ToListAsync());
+              return View(await _context.Sexos.ToListAsync());
         }
 
-        // GET: Encargadoes/Details/5
-        public async Task<IActionResult> Details(string id)
+        // GET: Sexoes/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Encargados == null)
+            if (id == null || _context.Sexos == null)
             {
                 return NotFound();
             }
 
-            var encargado = await _context.Encargados
-                .FirstOrDefaultAsync(m => m.Cedula == id);
-            if (encargado == null)
+            var sexo = await _context.Sexos
+                .FirstOrDefaultAsync(m => m.Identificador == id);
+            if (sexo == null)
             {
                 return NotFound();
             }
 
-            return View(encargado);
+            return View(sexo);
         }
 
-        // GET: Encargadoes/Create
+        // GET: Sexoes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Encargadoes/Create
+        // POST: Sexoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Cedula,Nombre,Apellido1,Apelllido2,Contraseña")] Encargado encargado)
+        public async Task<IActionResult> Create([Bind("Identificador,Nombre")] Sexo sexo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(encargado);
+                _context.Add(sexo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(encargado);
+            return View(sexo);
         }
 
-        // GET: Encargadoes/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        // GET: Sexoes/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Encargados == null)
+            if (id == null || _context.Sexos == null)
             {
                 return NotFound();
             }
 
-            var encargado = await _context.Encargados.FindAsync(id);
-            if (encargado == null)
+            var sexo = await _context.Sexos.FindAsync(id);
+            if (sexo == null)
             {
                 return NotFound();
             }
-            return View(encargado);
+            return View(sexo);
         }
 
-        // POST: Encargadoes/Edit/5
+        // POST: Sexoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Cedula,Nombre,Apellido1,Apelllido2,Contraseña")] Encargado encargado)
+        public async Task<IActionResult> Edit(int id, [Bind("Identificador,Nombre")] Sexo sexo)
         {
-            if (id != encargado.Cedula)
+            if (id != sexo.Identificador)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace Proyecto.Controllers
             {
                 try
                 {
-                    _context.Update(encargado);
+                    _context.Update(sexo);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EncargadoExists(encargado.Cedula))
+                    if (!SexoExists(sexo.Identificador))
                     {
                         return NotFound();
                     }
@@ -112,49 +112,49 @@ namespace Proyecto.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(encargado);
+            return View(sexo);
         }
 
-        // GET: Encargadoes/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        // GET: Sexoes/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Encargados == null)
+            if (id == null || _context.Sexos == null)
             {
                 return NotFound();
             }
 
-            var encargado = await _context.Encargados
-                .FirstOrDefaultAsync(m => m.Cedula == id);
-            if (encargado == null)
+            var sexo = await _context.Sexos
+                .FirstOrDefaultAsync(m => m.Identificador == id);
+            if (sexo == null)
             {
                 return NotFound();
             }
 
-            return View(encargado);
+            return View(sexo);
         }
 
-        // POST: Encargadoes/Delete/5
+        // POST: Sexoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Encargados == null)
+            if (_context.Sexos == null)
             {
-                return Problem("Entity set 'FincaLosLaurelesContext.Encargados'  is null.");
+                return Problem("Entity set 'FincaLosLaurelesContext.Sexos'  is null.");
             }
-            var encargado = await _context.Encargados.FindAsync(id);
-            if (encargado != null)
+            var sexo = await _context.Sexos.FindAsync(id);
+            if (sexo != null)
             {
-                _context.Encargados.Remove(encargado);
+                _context.Sexos.Remove(sexo);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EncargadoExists(string id)
+        private bool SexoExists(int id)
         {
-          return _context.Encargados.Any(e => e.Cedula == id);
+          return _context.Sexos.Any(e => e.Identificador == id);
         }
     }
 }

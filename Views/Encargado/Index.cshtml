@@ -1,0 +1,45 @@
+﻿@model List<Proyecto.Models.PropiedadesBovinosDueno>
+
+@{
+	int contador = 1;
+}
+
+
+<h2>Dueños</h2>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>			</th>
+			<th>Gerardo Fonseca</th>
+			<th>Marlon Fonseca</th>
+			<th>Nelson Fonseca</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+		@foreach (var dato in Model)
+		{
+			if (contador == 1)
+			{
+				<tr>
+					<td>Bovinos</td>
+					<td>@Html.DisplayFor(m=>dato.Gerardo)</td>
+					<td>@Html.DisplayFor(m=>dato.Marlon)</td>
+					<td>@Html.DisplayFor(m=>dato.Nelson)</td>
+				</tr>
+				contador++;
+			}
+			else
+			{
+				<tr>
+					<td>Propiedades</td>
+					<td>@Html.DisplayFor(m=>dato.Gerardo)</td>
+					<td>@Html.DisplayFor(m=>dato.Marlon)</td>
+					<td>@Html.DisplayFor(m=>dato.Nelson)</td>
+				</tr>
+			}
+
+		}
+	</tbody>
+</table>
