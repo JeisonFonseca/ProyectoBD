@@ -31,6 +31,7 @@ namespace Proyecto.Models
         public virtual DbSet<ProduccionLeche> ProduccionLeches { get; set; } = null!;
         public virtual DbSet<Propiedad> Propiedads { get; set; } = null!;
         public virtual DbSet<PropiedadesBovinosDueno> PropiedadesBovinosDuenos { get; set; } = null!;
+        public virtual DbSet<Raza> Razas { get; set; } = null!;
         public virtual DbSet<Sexo> Sexos { get; set; } = null!;
         public virtual DbSet<VistaBovino> VistaBovinos { get; set; } = null!;
         public virtual DbSet<VistaPropiedadDueno> VistaPropiedadDuenos { get; set; } = null!;
@@ -85,7 +86,7 @@ namespace Proyecto.Models
             modelBuilder.Entity<Bovino>(entity =>
             {
                 entity.HasKey(e => e.Identificador)
-                    .HasName("PK__Bovino__F2374EB15025A704");
+                    .HasName("PK__Bovino__F2374EB1B519FA92");
 
                 entity.ToTable("Bovino");
 
@@ -99,31 +100,33 @@ namespace Proyecto.Models
                     .HasMaxLength(40)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Raza)
-                    .HasMaxLength(40)
-                    .IsUnicode(false);
-
                 entity.HasOne(d => d.MadreNavigation)
                     .WithMany(p => p.InverseMadreNavigation)
                     .HasForeignKey(d => d.Madre)
-                    .HasConstraintName("FK__Bovino__Madre__4D94879B");
+                    .HasConstraintName("FK__Bovino__Madre__1DB06A4F");
 
                 entity.HasOne(d => d.PadreNavigation)
                     .WithMany(p => p.InversePadreNavigation)
                     .HasForeignKey(d => d.Padre)
-                    .HasConstraintName("FK__Bovino__Padre__4E88ABD4");
+                    .HasConstraintName("FK__Bovino__Padre__1EA48E88");
+
+                entity.HasOne(d => d.RazaNavigation)
+                    .WithMany(p => p.Bovinos)
+                    .HasForeignKey(d => d.Raza)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Bovino__Raza__1BC821DD");
 
                 entity.HasOne(d => d.SexoNavigation)
                     .WithMany(p => p.Bovinos)
                     .HasForeignKey(d => d.Sexo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Bovino__Sexo__4CA06362");
+                    .HasConstraintName("FK__Bovino__Sexo__1CBC4616");
 
                 entity.HasOne(d => d.TipoAdquisiciónNavigation)
                     .WithMany(p => p.Bovinos)
                     .HasForeignKey(d => d.TipoAdquisición)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Bovino__TipoAdqu__4F7CD00D");
+                    .HasConstraintName("FK__Bovino__TipoAdqu__1F98B2C1");
             });
 
             modelBuilder.Entity<BovinoProduccion>(entity =>
@@ -136,13 +139,13 @@ namespace Proyecto.Models
                     .WithMany()
                     .HasForeignKey(d => d.IdentificadorBovino)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BovinoPro__Ident__5CD6CB2B");
+                    .HasConstraintName("FK__BovinoPro__Ident__25518C17");
 
                 entity.HasOne(d => d.IdentificadorProduccionNavigation)
                     .WithMany()
                     .HasForeignKey(d => d.IdentificadorProduccion)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BovinoPro__Ident__5DCAEF64");
+                    .HasConstraintName("FK__BovinoPro__Ident__2645B050");
             });
 
             modelBuilder.Entity<Chancho>(entity =>
@@ -241,11 +244,11 @@ namespace Proyecto.Models
                     .WithMany(p => p.CedulaEncargados)
                     .UsingEntity<Dictionary<string, object>>(
                         "EncargadoBovino",
-                        l => l.HasOne<Bovino>().WithMany().HasForeignKey("IdentificadorBovino").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Encargado__Ident__0C85DE4D"),
-                        r => r.HasOne<Encargado>().WithMany().HasForeignKey("CedulaEncargado").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Encargado__Cedul__0B91BA14"),
+                        l => l.HasOne<Bovino>().WithMany().HasForeignKey("IdentificadorBovino").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Encargado__Ident__236943A5"),
+                        r => r.HasOne<Encargado>().WithMany().HasForeignKey("CedulaEncargado").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Encargado__Cedul__22751F6C"),
                         j =>
                         {
-                            j.HasKey("CedulaEncargado", "IdentificadorBovino").HasName("PK__Encargad__F47BA14362E6B55E");
+                            j.HasKey("CedulaEncargado", "IdentificadorBovino").HasName("PK__Encargad__F47BA143B440E650");
 
                             j.ToTable("EncargadoBovino");
 
@@ -440,6 +443,18 @@ namespace Proyecto.Models
                 entity.HasNoKey();
 
                 entity.ToView("PropiedadesBovinosDuenos");
+            });
+
+            modelBuilder.Entity<Raza>(entity =>
+            {
+                entity.HasKey(e => e.Identificador)
+                    .HasName("PK__Raza__F2374EB1C55EE468");
+
+                entity.ToTable("Raza");
+
+                entity.Property(e => e.Nombre)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Sexo>(entity =>

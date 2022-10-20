@@ -1,0 +1,74 @@
+﻿@model Proyecto.Models.ViewModels.BovinoViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Bovino</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Identificador" class="control-label"></label>
+                <input asp-for="Identificador" class="form-control" />
+                <span asp-validation-for="Identificador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+			<div class="form-group">
+                <label>Raza</label>
+                <select asp-for="Identificador" asp-items="@(new SelectList(ViewBag.messageRazas,"Identificador","Nombre"))" class="form-control" > </select>
+                <span asp-validation-for="Identificador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaNacimiento" class="control-label"></label>
+                <input asp-for="FechaNacimiento" class="form-control" />
+                <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+            </div>
+			<div class="form-group">
+                <label>Sexo</label>
+                <select asp-for="Identificador" asp-items="@(new SelectList(ViewBag.messageSexo,"Identificador","Nombre"))" class="form-control" > </select>
+                <span asp-validation-for="Identificador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaMonta" class="control-label"></label>
+                <input asp-for="FechaMonta" class="form-control" />
+                <span asp-validation-for="FechaMonta" class="text-danger"></span>
+            </div>
+			<div class="form-group">
+                <label>Madre</label>
+                <select asp-for="Identificador" asp-items="@(new SelectList(ViewBag.messageMadre,"Identificador","Nombre"))" class="form-control" > </select>
+                <span asp-validation-for="Identificador" class="text-danger"></span>
+            </div>
+			<div class="form-group">
+                <label>Padre</label>
+                <select asp-for="Identificador" asp-items="@(new SelectList(ViewBag.messagePadre,"Identificador","Nombre"))" class="form-control" > </select>
+                <span asp-validation-for="Identificador" class="text-danger"></span>
+            </div>
+			<div class="form-group">
+                <label>Padre</label>
+                <select asp-for="Identificador" asp-items="@(new SelectList(ViewBag.messageAdquisicion,"Identificador","Nombre"))" class="form-control" > </select>
+                <span asp-validation-for="Identificador" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
