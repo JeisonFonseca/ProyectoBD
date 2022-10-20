@@ -32,6 +32,7 @@ namespace Proyecto.Models
         public virtual DbSet<Propiedad> Propiedads { get; set; } = null!;
         public virtual DbSet<PropiedadesBovinosDueno> PropiedadesBovinosDuenos { get; set; } = null!;
         public virtual DbSet<Sexo> Sexos { get; set; } = null!;
+        public virtual DbSet<VistaBovino> VistaBovinos { get; set; } = null!;
         public virtual DbSet<VistaPropiedadDueno> VistaPropiedadDuenos { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -450,6 +451,33 @@ namespace Proyecto.Models
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(30)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VistaBovino>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VistaBovinos");
+
+                entity.Property(e => e.FechaMonta).HasColumnType("date");
+
+                entity.Property(e => e.FechaNacimiento).HasColumnType("date");
+
+                entity.Property(e => e.Nombre)
+                    .HasMaxLength(40)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Raza)
+                    .HasMaxLength(40)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Sex)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Tipo)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 
