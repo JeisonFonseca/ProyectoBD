@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Proyecto.Models;
+using Proyecto.Models.ViewModels;
 
 namespace Proyecto.Controllers
 {
@@ -55,18 +56,18 @@ namespace Proyecto.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Identificador,Nombre")] Adquisión adquisión)
+        public async Task<IActionResult> Create([Bind("Identificador,Nombre,Raza,FechaNacimiento,Sexo,FechaMonta,Madre,Padre,TipoAdquisición")] BovinoViewModel bovino)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(adquisión);
+                _context.Add(bovino);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
 
 
-            return View(adquisión);
+            return View(bovino);
         }
     }
 }
