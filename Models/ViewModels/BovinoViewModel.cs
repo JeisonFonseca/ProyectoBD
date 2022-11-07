@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Proyecto.Models.ViewModels
 {
+    
     public class BovinoViewModel
     {
+        [Key]
         [Required]
         public int Identificador { get; set; }
 
@@ -11,7 +15,7 @@ namespace Proyecto.Models.ViewModels
         public string Nombre { get; set; } = null!;
 
         [Required]
-        public string Raza { get; set; } = null!;
+        public int Raza { get; set; }
 
         public DateTime? FechaNacimiento { get; set; }
 

@@ -31,5 +31,7 @@ namespace Proyecto.Models
         public virtual ICollection<Bovino> InversePadreNavigation { get; set; }
 
         public virtual ICollection<Encargado> CedulaEncargados { get; set; }
+
+
     }
 }

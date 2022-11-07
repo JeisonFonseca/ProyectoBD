@@ -22,20 +22,24 @@
                 <input asp-for="Nombre" class="form-control" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
-			<div class="form-group">
+            <div class="form-group">
                 <label>Raza</label>
-                <select asp-for="Identificador" asp-items="@(new SelectList(ViewBag.messageRazas,"Identificador","Nombre"))" class="form-control" > </select>
-                <span asp-validation-for="Identificador" class="text-danger"></span>
+                <br />
+                <select class="form-control" asp-for="Raza"
+                        asp-items="@(new SelectList(ViewBag.messageRazas,"Identificador","Nombre"))">
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="FechaNacimiento" class="control-label"></label>
                 <input asp-for="FechaNacimiento" class="form-control" />
                 <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
             </div>
-			<div class="form-group">
+            <div class="form-group">
                 <label>Sexo</label>
-                <select asp-for="Identificador" asp-items="@(new SelectList(ViewBag.messageSexo,"Identificador","Nombre"))" class="form-control" > </select>
-                <span asp-validation-for="Identificador" class="text-danger"></span>
+                <br />
+                <select class="form-control" asp-for="Sexo"
+                        asp-items="@(new SelectList(ViewBag.messageSexo,"Identificador","Nombre"))">
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="FechaMonta" class="control-label"></label>
@@ -52,10 +56,12 @@
                 <select asp-for="Identificador" asp-items="@(new SelectList(ViewBag.messagePadre,"Identificador","Nombre"))" class="form-control" > </select>
                 <span asp-validation-for="Identificador" class="text-danger"></span>
             </div>
-			<div class="form-group">
+            <div class="form-group">
                 <label>Forma de adquisición</label>
-                <select asp-for="Identificador" asp-items="@(new SelectList(ViewBag.messageAdquisicion,"Identificador","Nombre"))" class="form-control" > </select>
-                <span asp-validation-for="Identificador" class="text-danger"></span>
+                <br />
+                <select class="form-control" asp-for="TipoAdquisición"
+                        asp-items="@(new SelectList(ViewBag.messageAdquisicion,"Identificador","Nombre"))">
+                </select>
             </div>
 
             <div class="form-group">

@@ -17,7 +17,7 @@ namespace Proyecto.Controllers
         // GET: Bovino
         public async Task<IActionResult> Index()
         {
-            return View(await _context.VistaBovinos.ToListAsync());
+            return View();
         }
 
         // GET: Bovino/Create
@@ -60,7 +60,21 @@ namespace Proyecto.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(bovino);
+                var ganado = new Bovino()
+                {
+                    Identificador = bovino.Identificador,
+                    Nombre = bovino.Nombre,
+                    Raza = bovino.Raza,
+                    FechaNacimiento = bovino.FechaNacimiento,
+                    Sexo = bovino.Sexo,
+                    FechaMonta = bovino.FechaMonta,
+                    Madre = bovino.Madre,
+                    Padre = bovino.Padre,
+                    TipoAdquisición = bovino.TipoAdquisición
+                };
+
+
+                _context.Add(ganado);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

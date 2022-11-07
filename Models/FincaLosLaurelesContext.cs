@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Proyecto.Models.ViewModels;
 
 namespace Proyecto.Models
 {
@@ -35,6 +36,8 @@ namespace Proyecto.Models
         public virtual DbSet<Sexo> Sexos { get; set; } = null!;
         public virtual DbSet<VistaBovino> VistaBovinos { get; set; } = null!;
         public virtual DbSet<VistaPropiedadDueno> VistaPropiedadDuenos { get; set; } = null!;
+
+        public DbSet<BovinoViewModel> BovinoViewModel { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
