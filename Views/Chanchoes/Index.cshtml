@@ -1,0 +1,43 @@
+﻿
+@model List<Proyecto.Models.VistaPorcinosGeneral>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<p>
+    <a asp-action="Create">Agregar bovino</a>
+</p>
+
+
+<h2>Bovinos</h2>
+
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col">Nombre</th>
+			<th scope="col">FechaLlegada</th>
+			<th scope="col">PesoLlegada</th>
+			<th scope="col">FechaSalida</th>
+			<th scope="col">PesoSalida</th>
+			<th scope="col">Sexo</th>
+			<th scope="col">Dueño</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+		@foreach (var dato in Model)
+		{
+				<tr>
+					<td>@Html.DisplayFor(m=>dato.Nombre)</td>
+					<td>@Html.DisplayFor(m=>dato.FechaLlegada)</td>
+					<td>@Html.DisplayFor(m=>dato.PesoLlegada)</td>
+					<td>@Html.DisplayFor(m=>dato.FechaSalida)</td>
+					<td>@Html.DisplayFor(m=>dato.PesoSalida)</td>
+					<td>@Html.DisplayFor(m=>dato.Sexo)</td>
+					<td>@Html.DisplayFor(m=>dato.Dueno)</td>
+				</tr>
+		}
+	</tbody>
+</table>

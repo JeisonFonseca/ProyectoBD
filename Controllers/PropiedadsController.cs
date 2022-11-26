@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Proyecto.Models;
+using Proyecto.Models.ViewModels;
+
+
 
 namespace Proyecto.Controllers
 {
@@ -21,7 +24,7 @@ namespace Proyecto.Controllers
         // GET: Propiedads
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Propiedads.ToListAsync());
+              return View(await _context.VistaPropiedadDuenos.ToListAsync());
         }
 
         // GET: Propiedads/Details/5
@@ -32,7 +35,7 @@ namespace Proyecto.Controllers
                 return NotFound();
             }
 
-            var propiedad = await _context.Propiedads
+            var propiedad = await _context.VistaPropiedadDuenos
                 .FirstOrDefaultAsync(m => m.CodigoEscritura == id);
             if (propiedad == null)
             {
@@ -45,6 +48,11 @@ namespace Proyecto.Controllers
         // GET: Propiedads/Create
         public IActionResult Create()
         {
+            List<Encargado> lstDueno = new List<Encargado>();
+            lstDueno = (from c in _context.Encargados select new Encargado { Cedula = c.Cedula, Nombre = c.Nombre }).ToList();
+            lstDueno.Insert(0, new Encargado { Cedula = "", Nombre = "Seleccione el dueño" });
+            ViewBag.messageDueno = lstDueno;
+
             return View();
         }
 
@@ -53,11 +61,25 @@ namespace Proyecto.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CodigoEscritura,Descripcion,Area,FechaCompra")] Propiedad propiedad)
+        public async Task<IActionResult> Create([Bind("CodigoEscritura,Descripcion,Area,FechaCompra,Dueno")] PropiedadViewModel propiedad)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(propiedad);
+                var Propiedad = new Propiedad()
+                {
+                    CodigoEscritura = propiedad.CodigoEscritura,
+                    Descripcion = propiedad.Descripcion,
+                    Area = propiedad.Area,
+                    FechaCompra = propiedad.FechaCompra,
+                };
+
+                var duenoPropiedad = new EncargadoPropiedad()
+                {
+                    CodigoPropiedad = propiedad.CodigoEscritura,
+                    CedulaEncargado = propiedad.Dueno
+                };
+                _context.Add(Propiedad);
+                _context.Add(duenoPropiedad); 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

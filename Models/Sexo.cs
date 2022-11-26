@@ -11,7 +11,6 @@ namespace Proyecto.Models
             Bovinos = new HashSet<Bovino>();
             Chanchos = new HashSet<Chancho>();
             EncargadoAves = new HashSet<EncargadoAve>();
-            EncargadoChanchos = new HashSet<EncargadoChancho>();
             EncargadoPerros = new HashSet<EncargadoPerro>();
             Perros = new HashSet<Perro>();
         }
@@ -23,7 +22,6 @@ namespace Proyecto.Models
         public virtual ICollection<Bovino> Bovinos { get; set; }
         public virtual ICollection<Chancho> Chanchos { get; set; }
         public virtual ICollection<EncargadoAve> EncargadoAves { get; set; }
-        public virtual ICollection<EncargadoChancho> EncargadoChanchos { get; set; }
         public virtual ICollection<EncargadoPerro> EncargadoPerros { get; set; }
         public virtual ICollection<Perro> Perros { get; set; }
     }

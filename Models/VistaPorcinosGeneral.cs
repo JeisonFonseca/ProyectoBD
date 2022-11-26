@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Proyecto.Models
 {
-    public partial class Chancho
+    public partial class VistaPorcinosGeneral
     {
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;
@@ -12,8 +12,6 @@ namespace Proyecto.Models
         public DateTime? FechaSalida { get; set; }
         public double? PesoSalida { get; set; }
         public int Sexo { get; set; }
-
-        public virtual Sexo SexoNavigation { get; set; } = null!;
-        public virtual EncargadoChancho? EncargadoChancho { get; set; }
+        public string Dueno { get; set; } = null!;
     }
 }

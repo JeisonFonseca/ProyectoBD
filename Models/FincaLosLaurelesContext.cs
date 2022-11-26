@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Proyecto.Models.ViewModels;
 
 namespace Proyecto.Models
 {
@@ -25,19 +24,19 @@ namespace Proyecto.Models
         public virtual DbSet<Empleado> Empleados { get; set; } = null!;
         public virtual DbSet<Encargado> Encargados { get; set; } = null!;
         public virtual DbSet<EncargadoAve> EncargadoAves { get; set; } = null!;
+        public virtual DbSet<EncargadoBovino> EncargadoBovinos { get; set; } = null!;
         public virtual DbSet<EncargadoChancho> EncargadoChanchos { get; set; } = null!;
         public virtual DbSet<EncargadoPerro> EncargadoPerros { get; set; } = null!;
         public virtual DbSet<EncargadoPropiedad> EncargadoPropiedads { get; set; } = null!;
         public virtual DbSet<Perro> Perros { get; set; } = null!;
         public virtual DbSet<ProduccionLeche> ProduccionLeches { get; set; } = null!;
         public virtual DbSet<Propiedad> Propiedads { get; set; } = null!;
-        public virtual DbSet<PropiedadesBovinosDueno> PropiedadesBovinosDuenos { get; set; } = null!;
         public virtual DbSet<Raza> Razas { get; set; } = null!;
         public virtual DbSet<Sexo> Sexos { get; set; } = null!;
-        public virtual DbSet<VistaBovino> VistaBovinos { get; set; } = null!;
+        public virtual DbSet<VistaBovinosGeneral> VistaBovinosGenerals { get; set; } = null!;
+        public virtual DbSet<VistaPorcinosGeneral> VistaPorcinosGenerals { get; set; } = null!;
+        public virtual DbSet<VistaPropBovDueno> VistaPropBovDuenos { get; set; } = null!;
         public virtual DbSet<VistaPropiedadDueno> VistaPropiedadDuenos { get; set; } = null!;
-
-        public DbSet<BovinoViewModel> BovinoViewModel { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -95,6 +94,10 @@ namespace Proyecto.Models
 
                 entity.Property(e => e.Identificador).ValueGeneratedNever();
 
+                entity.Property(e => e.Dueno)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.FechaMonta).HasColumnType("date");
 
                 entity.Property(e => e.FechaNacimiento).HasColumnType("date");
@@ -102,6 +105,11 @@ namespace Proyecto.Models
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(40)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.DuenoNavigation)
+                    .WithMany(p => p.Bovinos)
+                    .HasForeignKey(d => d.Dueno)
+                    .HasConstraintName("FK__Bovino__Dueno__2EDAF651");
 
                 entity.HasOne(d => d.MadreNavigation)
                     .WithMany(p => p.InverseMadreNavigation)
@@ -153,22 +161,23 @@ namespace Proyecto.Models
 
             modelBuilder.Entity<Chancho>(entity =>
             {
-                entity.HasKey(e => e.Nombre)
-                    .HasName("PK__Chancho__75E3EFCEF66A30BD");
-
                 entity.ToTable("Chancho");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.FechaLlegada).HasColumnType("date");
+
+                entity.Property(e => e.FechaSalida).HasColumnType("date");
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(40)
                     .IsUnicode(false);
 
-                entity.Property(e => e.FechaLlegada).HasColumnType("date");
-
                 entity.HasOne(d => d.SexoNavigation)
                     .WithMany(p => p.Chanchos)
                     .HasForeignKey(d => d.Sexo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Chancho__Sexo__68487DD7");
+                    .HasConstraintName("FK__Chancho__Sexo__3493CFA7");
             });
 
             modelBuilder.Entity<Empleado>(entity =>
@@ -242,21 +251,6 @@ namespace Proyecto.Models
 
                             j.IndexerProperty<string>("CedulaEmpleado").HasMaxLength(10).IsUnicode(false);
                         });
-
-                entity.HasMany(d => d.IdentificadorBovinos)
-                    .WithMany(p => p.CedulaEncargados)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "EncargadoBovino",
-                        l => l.HasOne<Bovino>().WithMany().HasForeignKey("IdentificadorBovino").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Encargado__Ident__236943A5"),
-                        r => r.HasOne<Encargado>().WithMany().HasForeignKey("CedulaEncargado").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Encargado__Cedul__22751F6C"),
-                        j =>
-                        {
-                            j.HasKey("CedulaEncargado", "IdentificadorBovino").HasName("PK__Encargad__F47BA143B440E650");
-
-                            j.ToTable("EncargadoBovino");
-
-                            j.IndexerProperty<string>("CedulaEncargado").HasMaxLength(10).IsUnicode(false);
-                        });
             });
 
             modelBuilder.Entity<EncargadoAve>(entity =>
@@ -299,40 +293,59 @@ namespace Proyecto.Models
                     .HasConstraintName("FK__EncargadoA__Sexo__74AE54BC");
             });
 
-            modelBuilder.Entity<EncargadoChancho>(entity =>
+            modelBuilder.Entity<EncargadoBovino>(entity =>
             {
-                entity.HasKey(e => e.CedulaEncargado)
-                    .HasName("PK__Encargad__B28BCA245C15B1E7");
+                entity.HasKey(e => new { e.CedulaEncargado, e.IdentificadorBovino })
+                    .HasName("PK__Encargad__F47BA143B440E650");
 
-                entity.ToTable("EncargadoChancho");
+                entity.ToTable("EncargadoBovino");
 
                 entity.Property(e => e.CedulaEncargado)
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.FechaLlegada).HasColumnType("date");
+                entity.Property(e => e.Nota)
+                    .HasMaxLength(150)
+                    .IsUnicode(false)
+                    .HasColumnName("nota");
 
-                entity.Property(e => e.IdentificadorPerro)
-                    .HasMaxLength(40)
+                entity.HasOne(d => d.CedulaEncargadoNavigation)
+                    .WithMany(p => p.EncargadoBovinos)
+                    .HasForeignKey(d => d.CedulaEncargado)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Encargado__Cedul__22751F6C");
+
+                entity.HasOne(d => d.IdentificadorBovinoNavigation)
+                    .WithMany(p => p.EncargadoBovinos)
+                    .HasForeignKey(d => d.IdentificadorBovino)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Encargado__Ident__236943A5");
+            });
+
+            modelBuilder.Entity<EncargadoChancho>(entity =>
+            {
+                entity.HasKey(e => e.IdentificadorChancho)
+                    .HasName("PK__Encargad__5347A085C10798D3");
+
+                entity.ToTable("EncargadoChancho");
+
+                entity.Property(e => e.IdentificadorChancho).ValueGeneratedNever();
+
+                entity.Property(e => e.CedulaEncargado)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.CedulaEncargadoNavigation)
+                    .WithMany(p => p.EncargadoChanchos)
+                    .HasForeignKey(d => d.CedulaEncargado)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Encargado__Cedul__3B40CD36");
+
+                entity.HasOne(d => d.IdentificadorChanchoNavigation)
                     .WithOne(p => p.EncargadoChancho)
-                    .HasForeignKey<EncargadoChancho>(d => d.CedulaEncargado)
+                    .HasForeignKey<EncargadoChancho>(d => d.IdentificadorChancho)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Encargado__Cedul__6B24EA82");
-
-                entity.HasOne(d => d.IdentificadorPerroNavigation)
-                    .WithMany(p => p.EncargadoChanchos)
-                    .HasForeignKey(d => d.IdentificadorPerro)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Encargado__Ident__6C190EBB");
-
-                entity.HasOne(d => d.SexoNavigation)
-                    .WithMany(p => p.EncargadoChanchos)
-                    .HasForeignKey(d => d.Sexo)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EncargadoC__Sexo__6D0D32F4");
+                    .HasConstraintName("FK__Encargado__Ident__3C34F16F");
             });
 
             modelBuilder.Entity<EncargadoPerro>(entity =>
@@ -393,7 +406,6 @@ namespace Proyecto.Models
                 entity.HasOne(d => d.CodigoPropiedadNavigation)
                     .WithOne(p => p.EncargadoPropiedad)
                     .HasForeignKey<EncargadoPropiedad>(d => d.CodigoPropiedad)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Encargado__Codig__08B54D69");
             });
 
@@ -441,13 +453,6 @@ namespace Proyecto.Models
                 entity.Property(e => e.FechaCompra).HasColumnType("date");
             });
 
-            modelBuilder.Entity<PropiedadesBovinosDueno>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("PropiedadesBovinosDuenos");
-            });
-
             modelBuilder.Entity<Raza>(entity =>
             {
                 entity.HasKey(e => e.Identificador)
@@ -472,11 +477,15 @@ namespace Proyecto.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<VistaBovino>(entity =>
+            modelBuilder.Entity<VistaBovinosGeneral>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("VistaBovinos");
+                entity.ToView("VistaBovinosGeneral");
+
+                entity.Property(e => e.Dueno)
+                    .HasMaxLength(40)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.FechaMonta).HasColumnType("date");
 
@@ -487,7 +496,7 @@ namespace Proyecto.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Raza)
-                    .HasMaxLength(40)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Sex)
@@ -497,6 +506,32 @@ namespace Proyecto.Models
                 entity.Property(e => e.Tipo)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VistaPorcinosGeneral>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VistaPorcinosGeneral");
+
+                entity.Property(e => e.Dueno)
+                    .HasMaxLength(40)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaLlegada).HasColumnType("date");
+
+                entity.Property(e => e.FechaSalida).HasColumnType("date");
+
+                entity.Property(e => e.Nombre)
+                    .HasMaxLength(40)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VistaPropBovDueno>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VistaPropBovDuenos");
             });
 
             modelBuilder.Entity<VistaPropiedadDueno>(entity =>

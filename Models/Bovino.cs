@@ -7,9 +7,9 @@ namespace Proyecto.Models
     {
         public Bovino()
         {
+            EncargadoBovinos = new HashSet<EncargadoBovino>();
             InverseMadreNavigation = new HashSet<Bovino>();
             InversePadreNavigation = new HashSet<Bovino>();
-            CedulaEncargados = new HashSet<Encargado>();
         }
 
         public int Identificador { get; set; }
@@ -21,17 +21,16 @@ namespace Proyecto.Models
         public int? Madre { get; set; }
         public int? Padre { get; set; }
         public int TipoAdquisición { get; set; }
+        public string? Dueno { get; set; }
 
+        public virtual Encargado? DuenoNavigation { get; set; }
         public virtual Bovino? MadreNavigation { get; set; }
         public virtual Bovino? PadreNavigation { get; set; }
         public virtual Raza RazaNavigation { get; set; } = null!;
         public virtual Sexo SexoNavigation { get; set; } = null!;
         public virtual Adquisión TipoAdquisiciónNavigation { get; set; } = null!;
+        public virtual ICollection<EncargadoBovino> EncargadoBovinos { get; set; }
         public virtual ICollection<Bovino> InverseMadreNavigation { get; set; }
         public virtual ICollection<Bovino> InversePadreNavigation { get; set; }
-
-        public virtual ICollection<Encargado> CedulaEncargados { get; set; }
-
-
     }
 }

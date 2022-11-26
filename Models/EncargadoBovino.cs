@@ -7,6 +7,7 @@ namespace Proyecto.Models
     {
         public string CedulaEncargado { get; set; } = null!;
         public int IdentificadorBovino { get; set; }
+        public string? Nota { get; set; }
 
         public virtual Encargado CedulaEncargadoNavigation { get; set; } = null!;
         public virtual Bovino IdentificadorBovinoNavigation { get; set; } = null!;

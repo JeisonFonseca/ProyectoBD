@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Proyecto.Models
 {
-    public partial class PropiedadesBovinosDueno
+    public partial class VistaPropBovDueno
     {
         public int? Gerardo { get; set; }
         public int? Marlon { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Proyecto.Models
 {
-    public partial class VistaBovino
+    public partial class VistaBovinosGeneral
     {
         public int Identificador { get; set; }
         public string Nombre { get; set; } = null!;
@@ -14,5 +14,6 @@ namespace Proyecto.Models
         public int? Madre { get; set; }
         public int? Padre { get; set; }
         public string Tipo { get; set; } = null!;
+        public string Dueno { get; set; } = null!;
     }
 }

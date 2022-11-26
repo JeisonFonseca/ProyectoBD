@@ -18,7 +18,7 @@ namespace Proyecto.Controllers
          */
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PropiedadesBovinosDuenos.ToListAsync()); 
+            return View(await _context.VistaPropBovDuenos.ToListAsync()); 
         }
     }
 }

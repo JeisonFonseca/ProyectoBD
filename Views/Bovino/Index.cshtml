@@ -1,5 +1,5 @@
-﻿
-<!-- REvisar mensajes destacados en whatsapp, ahi esta el codigo -->
+﻿@model List<Proyecto.Models.VistaBovinosGeneral>
+
 <p>
     <a asp-action="Create">Agregar bovino</a>
 </p>
@@ -7,3 +7,35 @@
 
 <h2>Bovinos</h2>
 
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col">Nombre</th>
+			<th scope="col">Raza</th>
+			<th scope="col">Fecha nacimiento</th>
+			<th scope="col">Sexo</th>
+			<th scope="col">Madre</th>
+			<th scope="col">Padre</th>
+			<th scope="col">Adquicisión</th>
+			<th scope="col">Dueño</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+		@foreach (var dato in Model)
+		{
+				<tr>
+					<td>@Html.DisplayFor(m=>dato.Identificador)</td>
+					<td>@Html.DisplayFor(m=>dato.Nombre)</td>
+					<td>@Html.DisplayFor(m=>dato.Raza)</td>
+					<td>@Html.DisplayFor(m=>dato.FechaNacimiento)</td>
+					<td>@Html.DisplayFor(m=>dato.Sex)</td>
+					<td>@Html.DisplayFor(m=>dato.Madre)</td>
+					<td>@Html.DisplayFor(m=>dato.Padre)</td>
+					<td>@Html.DisplayFor(m=>dato.Tipo)</td>
+					<td>@Html.DisplayFor(m=>dato.Dueno)</td>
+				</tr>
+		}
+	</tbody>
+</table>

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Proyecto.Models;
-using Proyecto.Models.ViewModels;
 
 namespace Proyecto.Controllers
 {
@@ -17,7 +16,7 @@ namespace Proyecto.Controllers
         // GET: Bovino
         public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _context.VistaBovinosGenerals.ToListAsync());
         }
 
         // GET: Bovino/Create
@@ -48,6 +47,11 @@ namespace Proyecto.Controllers
             lstSexo.Insert(0, new Sexo { Identificador = 0, Nombre = "Seleccione el sexo" });
             ViewBag.messageSexo = lstSexo;
 
+            List<Encargado> lstDueno = new List<Encargado>();
+            lstDueno = (from c in _context.Encargados select new Encargado { Cedula = c.Cedula, Nombre = c.Nombre }).ToList();
+            lstDueno.Insert(0, new Encargado { Cedula="", Nombre = "Seleccione el dueño" });
+            ViewBag.messageDueno = lstDueno;
+
             return View();
         }
 
@@ -56,7 +60,7 @@ namespace Proyecto.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Identificador,Nombre,Raza,FechaNacimiento,Sexo,FechaMonta,Madre,Padre,TipoAdquisición")] BovinoViewModel bovino)
+        public async Task<IActionResult> Create([Bind("Identificador,Nombre,Raza,FechaNacimiento,Sexo,FechaMonta,Madre,Padre,TipoAdquisición,Dueno")] Bovino bovino)
         {
             if (ModelState.IsValid)
             {
@@ -70,11 +74,20 @@ namespace Proyecto.Controllers
                     FechaMonta = bovino.FechaMonta,
                     Madre = bovino.Madre,
                     Padre = bovino.Padre,
-                    TipoAdquisición = bovino.TipoAdquisición
+                    TipoAdquisición = bovino.TipoAdquisición,
+                    Dueno = bovino.Dueno
                 };
 
+                var duenoBovino = new EncargadoBovino()
+                {
+#pragma warning disable CS8601 // Possible null reference assignment.
+                    CedulaEncargado = bovino.Dueno,
+#pragma warning restore CS8601 // Possible null reference assignment.
+                    IdentificadorBovino = bovino.Identificador
+                };
 
                 _context.Add(ganado);
+                _context.Add(duenoBovino);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
